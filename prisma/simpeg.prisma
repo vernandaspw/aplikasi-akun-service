@@ -1,0 +1,367 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "simpeg"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL_SIMPEG")
+}
+
+model absensi {
+  id         Int            @id
+  nip        String         @db.VarChar(50)
+  tgl        DateTime       @db.Date
+  jam_masuk  String         @db.VarChar(50)
+  jam_keluar String         @db.VarChar(50)
+  status     absensi_status
+}
+
+model anak {
+  id            Int      @id
+  nip           String   @db.VarChar(50)
+  nama          String   @db.VarChar(100)
+  tempat        String   @db.Text
+  tanggal_lahir DateTime @db.Date
+  status        String   @db.VarChar(50)
+  ke            Int
+  gender        String   @db.VarChar(20)
+  tunjangan     String   @db.VarChar(50)
+  kawin         String   @db.VarChar(50)
+  bekerja       String   @db.VarChar(50)
+  sekolah       String   @db.VarChar(50)
+  putusan       String   @db.VarChar(100)
+}
+
+model berkas {
+  id         Int      @id
+  nip        String   @db.VarChar(50)
+  keterangan String   @db.VarChar(200)
+  tgl        DateTime @db.Date
+  foto       String   @db.VarChar(255)
+  tipe       String   @db.VarChar(100)
+}
+
+model customer {
+  customer_id    Int    @id @default(autoincrement())
+  customer_name  String @db.VarChar(300)
+  customer_email String @db.VarChar(300)
+}
+
+model cuti {
+  id_cuti    BigInt      @id
+  id_cek     Int
+  tgl_cuti   DateTime    @db.Date
+  nip        String      @db.VarChar(50)
+  jenis_cuti String      @db.VarChar(100)
+  alasan     String      @db.Text
+  lama       Int
+  cek        String      @db.VarChar(50)
+  tgl_a      DateTime    @db.Date
+  tgl_b      DateTime    @db.Date
+  nip_atasan String      @db.VarChar(255)
+  status     cuti_status
+  n2         Int
+  n1         Int
+  n          Int
+}
+
+model detail_s_ijasah {
+  id_detail_s_ijasah BigInt @id @default(autoincrement())
+  nomor              String @db.VarChar(100)
+  tingkat            String @db.VarChar(100)
+  nama               String @db.VarChar(100)
+}
+
+model gaji {
+  id              Int      @id
+  nip             String   @db.VarChar(50)
+  gaji_pokok      Int
+  tunj_istri      Int
+  tunj_anak       Int
+  tunj_hselon     Int
+  tunj_fung_umum  Int
+  tunj_fungsional Int
+  tunj_khusus     Int
+  tunj_terpencil  Int
+  tkd             Int
+  tunj_beras      Int
+  tunj_pajak      Int
+  tunj_bpjs       Int
+  tunj_jkk        Int
+  tunj_jkm        Int
+  pembulatan      Int
+  pot_pajak       Int
+  pot_bpjs        Int
+  pot_iwp_21      Int
+  pot_iwp_01      Int
+  pot_tapebum     Int
+  pot_jkk         Int
+  pot_jkm         Int
+  hutang          Int
+  bulog           Int
+  sewa_rumah      Int
+  tgl_gaji        DateTime @db.Date
+  gaji_bersih     Int
+}
+
+model golongan {
+  golongan   String @id @db.VarChar(100)
+  keterangan String @db.VarChar(100)
+}
+
+
+
+model jml_hari_rekap {
+  id_jml Int      @id
+  tgl    DateTime @db.Date
+  jml    Int
+}
+
+model keluarga {
+  id          Int      @id
+  nip         String   @db.VarChar(50)
+  nama        String   @db.VarChar(100)
+  tempat      String   @db.VarChar(100)
+  tgl_lahir   DateTime @db.Date
+  nik         String   @db.VarChar(50)
+  pekerjaan   String   @db.VarChar(100)
+  tgl_nikah   DateTime @db.Date
+  ke          Int
+  penghasilan Int
+}
+
+model mutasi {
+  nip              String   @id @db.VarChar(50)
+  kenaikan_pangkat String   @db.VarChar(100)
+  tmt_kenaikan     DateTime @db.Date
+  kenaikan_gaji    Int
+  tmt_gaji         DateTime @db.Date
+  pensiun          String   @db.VarChar(50)
+  tmt_pensiun      DateTime @db.Date
+  ijasah           String   @db.VarChar(50)
+  tmt_ijasah       DateTime @db.Date
+}
+
+model pegawai {
+  id                     Int
+  nip                    String         @id @db.VarChar(50)
+  nama                   String         @db.VarChar(100)
+  tempat_lahir           String         @db.VarChar(100)
+  tgl_lahir              DateTime       @db.Date
+  gender                 pegawai_gender
+  agama                  String         @db.VarChar(50)
+  kebangsaan             String         @db.VarChar(50)
+  jumlah_keluarga        Int
+  alamat                 String         @db.Text
+  sk_terakhir            String         @db.VarChar(100)
+  pangkat                String         @db.VarChar(100)
+  tmt_golongan           DateTime       @db.Date
+  jenis_pegawai          String         @db.VarChar(100)
+  tmt_capeg              DateTime       @db.Date
+  status_pegawai         String         @db.VarChar(100)
+  status_kontrak         String         @db.VarChar(500)
+  jabatan                String         @db.VarChar(100)
+  digaji_menurut         String         @db.VarChar(100)
+  gaji_pokok             String         @db.VarChar(50)
+  besarnya_penghasilan   Int
+  masa_kerja_golongan    String         @db.VarChar(50)
+  masa_kerja_keseluruhan String         @db.VarChar(50)
+  npwp                   String         @db.VarChar(50)
+  rt                     String         @db.VarChar(20)
+  rw                     String         @db.VarChar(10)
+  desa                   String         @db.VarChar(50)
+  kecamatan              String         @db.VarChar(50)
+  kabupaten              String         @db.VarChar(50)
+  wa                     String         @db.VarChar(15)
+  latihan_jabatan        String         @db.VarChar(200)
+  bulan_tahun            String         @db.VarChar(200)
+  jpl                    String         @db.VarChar(100)
+  pendidikan             String         @db.VarChar(300)
+  tingkat_ijazah         String         @db.VarChar(300)
+  gol_darah              String         @db.VarChar(50)
+  lulus_tahun            String         @db.VarChar(200)
+  nik                    String         @db.VarChar(100)
+  email                  String         @db.VarChar(100)
+  norek                  String         @db.VarChar(100)
+  status_nikah           String         @db.VarChar(100)
+  c_mutasi               String         @db.VarChar(300)
+}
+
+model pelatihan {
+  id            Int      @id
+  nip           String   @db.VarChar(50)
+  keterangan    String   @db.VarChar(200)
+  tgl           DateTime @db.Date
+  no_sertifikat String   @db.VarChar(200)
+  jam           DateTime @db.Time(0)
+  tempat        String   @db.Text
+  lenggara      String   @db.VarChar(200)
+  foto          String   @db.VarChar(255)
+  tipe          String   @db.VarChar(100)
+}
+
+model pemberitahuan {
+  nip         String @id @db.VarChar(50)
+  status      String @db.VarChar(10)
+  status_gaji String @db.VarChar(50)
+}
+
+model pendidikan_formal {
+  id                       Int    @id @default(autoincrement())
+  nip                      String @db.VarChar(50)
+  tingkat_pendidikanformal String @db.VarChar(100)
+  nmpendidikan_formal      String @db.VarChar(100)
+  jurusan_formal           String @db.VarChar(100)
+  tahunlulus_formal        String @db.VarChar(100)
+}
+
+model pendidikan_informal {
+  id                       Int    @id
+  nip                      String @db.VarChar(50)
+  tingkat_pendidikanformal String @db.VarChar(100)
+  nmpendidikan_formal      String @db.VarChar(100)
+  jurusan_formal           String @db.VarChar(100)
+  tahunlulus_formal        String @db.VarChar(100)
+}
+
+model profil {
+  id       Int    @id
+  nama     String @db.VarChar(100)
+  instansi String @db.Text
+  provinsi String @db.VarChar(100)
+  kota     String @db.VarChar(100)
+  alamat   String @db.Text
+  logo     String @db.VarChar(100)
+  bg       String @db.VarChar(100)
+  fb       String @db.VarChar(100)
+  twitter  String @db.VarChar(100)
+  ig       String @db.VarChar(100)
+}
+
+model rekap_absensi {
+  id_rekap BigInt   @id
+  tgl      DateTime @db.Date
+  nip      String   @db.VarChar(50)
+  i        Int
+  s        Int
+  c        Int
+  tk       Int
+}
+
+model s_ijasah {
+  id_s_ijasah BigInt   @id
+  tgl         DateTime @db.Date
+  banyaknya   Int
+  tipe        String   @db.VarChar(100)
+  keterangan  String   @db.Text
+  nomor_surat String   @db.VarChar(50)
+}
+
+model s_kenaikan {
+  id_s_kenaikan BigInt   @id
+  tgl           DateTime @db.Date
+  d             BigInt
+  m             BigInt
+  y             Int
+  banyaknya     Int
+  tipe          String   @db.VarChar(100)
+  keterangan    String   @db.Text
+  nomor_surat   String   @db.VarChar(50)
+}
+
+model sip {
+  id         Int      @id
+  nip        String   @db.VarChar(50)
+  nama       String   @db.VarChar(200)
+  nostr      String   @db.VarChar(100)
+  email      String   @db.VarChar(100)
+  nowa       String   @db.VarChar(200)
+  keterangan String   @db.VarChar(200)
+  tgl        DateTime @db.Date
+  tglstart   DateTime @db.Date
+  foto       String   @db.VarChar(255)
+  tipe       String   @db.VarChar(100)
+}
+
+model sk {
+  id         Int    @id @default(autoincrement())
+  keterangan String @db.VarChar(100)
+}
+
+model str {
+  id         Int      @id
+  nip        String   @db.VarChar(100)
+  nama       String   @db.VarChar(100)
+  nostr      String   @db.VarChar(100)
+  email      String   @db.VarChar(200)
+  nowa       String   @db.VarChar(200)
+  keterangan String   @db.VarChar(200)
+  tgl        DateTime @db.Date
+  tglstart   DateTime @db.Date
+  foto       String   @db.VarChar(255)
+  tipe       String   @db.VarChar(100)
+}
+
+model ttdpegawai {
+  id   Int    @id
+  nip  String @db.VarChar(100)
+  nama String @db.VarChar(200)
+  foto String @db.VarChar(255)
+  tipe String @db.VarChar(255)
+}
+
+model user {
+  username String      @id @db.VarChar(20)
+  nip      String      @db.VarChar(30)
+  password String      @db.VarChar(225)
+  nama     String      @db.VarChar(100)
+  level    String      @db.VarChar(50)
+  gender   String?
+  foto     String      @db.VarChar(100)
+  status   user_status
+}
+
+model wa {
+  id    Int    @id
+  token String @db.VarChar(155)
+}
+
+enum jabatan_jenis {
+  pangkat
+  jenis
+  status
+  jabatan
+}
+
+enum absensi_status {
+  A
+  I
+  S
+  C
+  X
+}
+
+enum pegawai_gender {
+  l
+  p
+}
+
+enum user_gender {
+  l
+  p
+}
+
+enum user_status {
+  Aktif
+  Tidak_Aktif 
+}
+
+enum cuti_status {
+  A
+  X
+  Y
+  P
+  T
+  B
+}

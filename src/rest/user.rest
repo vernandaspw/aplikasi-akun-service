@@ -1,0 +1,3 @@
+GET http://localhost:4000/api/v1/user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhMGM3ZTEwYi01NDBiLTQ4NTEtYWM3NS05MDk3MTViMWQ3ZTIiLCJpYXQiOjE3MTQ0NDc1NDcsImV4cCI6MTcxNDQ1MTE0N30.X_oXYfWMwHKV-OtYwVtaWDBdNFg2mP2grCY-O44r-Xw
